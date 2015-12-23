@@ -33,7 +33,7 @@
 /** 键盘补偿视图工具，为了避免弹出的键盘遮挡输入框，向上移动视图 */
 @interface UIView (CLKeyboardOffsetView)
 
-/** 键盘与第一响应者的间隙，默认值为5 */
+/** 键盘与第一响应者的间隙，默认值为5.0 */
 @property (nonatomic, assign) CGFloat keyboardGap;
 
 /** 委托，用于设置视图偏移的高度 */

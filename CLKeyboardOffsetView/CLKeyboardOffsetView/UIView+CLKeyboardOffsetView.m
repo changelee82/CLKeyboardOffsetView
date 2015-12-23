@@ -28,16 +28,11 @@ static char kKeyboardOffsetViewDelegate;
 
 - (CGFloat)keyboardGap
 {
-    return [objc_getAssociatedObject(self, &kKeyboardGap) floatValue];
-}
-
-/** 是否已经设置了键盘间隙 */
-- (BOOL)existKeyboardGap
-{
+    // 未设置该属性，则返回默认值
     if (objc_getAssociatedObject(self, &kKeyboardGap) == nil)
-        return NO;
-    
-    return YES;
+        return 5.0;
+        
+    return [objc_getAssociatedObject(self, &kKeyboardGap) floatValue];
 }
 
 /** 委托，用于设置视图偏移的高度 */
@@ -128,12 +123,6 @@ static char kKeyboardOffsetViewDelegate;
     // 获取第一响应者的位置
     UIView *firstResponder = [self firstResponder];
     CGRect rect = [firstResponder.superview convertRect:firstResponder.frame toView:self];
-    
-    // 用户未设置键盘与第一响应者的间隙，则间隙默认值为5
-    if ([self existKeyboardGap] == NO)
-    {
-        self.keyboardGap = 5.0;
-    }
     
     // 计算向上偏移的高度，根据当前的第一响应者计算视图偏移高度，当键盘没有遮挡输入框时，弹出键盘时不需要移动视图
     CGFloat offsetViewHeight = self.frame.size.height - rect.origin.y - rect.size.height - self.keyboardGap;

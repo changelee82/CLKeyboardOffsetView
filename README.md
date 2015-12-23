@@ -15,48 +15,48 @@
 使用方法
 ===============
 
-  #import "UIView+CLKeyboardOffsetView.h"
-    
-  - (void)viewDidAppear:(BOOL)animated
-  {
-    [super viewDidAppear:animated];
-    
-    // 打开键盘补偿视图
-    [self.view openKeyboardOffsetView];
-    self.view.keyboardGap = 10; // 如果需要自定义键盘与第一响应者之间的间隙，则设置此属性，默认为5
-  }
-
-  - (void)viewDidDisappear:(BOOL)animated
-  {
-    [super viewDidDisappear:animated];
-    
-    // 关闭键盘补偿视图
-    [self.view closeKeyboardOffsetView];
-  }
+    #import "UIView+CLKeyboardOffsetView.h"
+      
+    - (void)viewDidAppear:(BOOL)animated
+    {
+      [super viewDidAppear:animated];
+      
+      // 打开键盘补偿视图
+      [self.view openKeyboardOffsetView];
+      self.view.keyboardGap = 10; // 如果需要自定义键盘与第一响应者之间的间隙，则设置此属性，默认为5
+    }
   
-  如果需要自定义视图向上移动的高度，则使用代理 
-  <CLKeyboardOffsetViewDelegate>
-  self.view.keyboardOffsetViewDelegate = self;
-  并添加代理方法
-  /**
-   *  弹出键盘时，自定义视图向上移动的高度
-   *
-   *  @param firstResponder 第一响应者
-   *  @param keyboardHeight 当前弹出键盘的高度
-   *  @param offsetHeight   默认偏移高度
-   *
-   *  @return 视图向上移动的高度
-   */
-  - (CGFloat)offsetViewHeightWithFirstResponder:(UIView *)firstResponder
-                                 keyboardHeight:(CGFloat)keyboardHeight
-                                   offsetHeight:(CGFloat)offsetHeight
-  {
-      if ([firstResponder isEqual:_testTextField])
-      {
-          return keyboardHeight;
-      }
-      return offsetHeight;
-  }
+    - (void)viewDidDisappear:(BOOL)animated
+    {
+      [super viewDidDisappear:animated];
+      
+      // 关闭键盘补偿视图
+      [self.view closeKeyboardOffsetView];
+    }
+    
+    如果需要自定义视图向上移动的高度，则使用代理 
+    <CLKeyboardOffsetViewDelegate>
+    self.view.keyboardOffsetViewDelegate = self;
+    并添加代理方法
+    /**
+     *  弹出键盘时，自定义视图向上移动的高度
+     *
+     *  @param firstResponder 第一响应者
+     *  @param keyboardHeight 当前弹出键盘的高度
+     *  @param offsetHeight   默认偏移高度
+     *
+     *  @return 视图向上移动的高度
+     */
+    - (CGFloat)offsetViewHeightWithFirstResponder:(UIView *)firstResponder
+                                   keyboardHeight:(CGFloat)keyboardHeight
+                                     offsetHeight:(CGFloat)offsetHeight
+    {
+        if ([firstResponder isEqual:_testTextField])
+        {
+            return keyboardHeight;
+        }
+        return offsetHeight;
+    }
 
 
 详细的示例请参考代码。 <br />

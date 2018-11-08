@@ -27,6 +27,18 @@
                                keyboardHeight:(CGFloat)keyboardHeight
                                  offsetHeight:(CGFloat)offsetHeight;
 
+
+/**
+ *  关闭键盘时，恢复视图向上移动的高度
+ *
+ *  @param firstResponder 第一响应者
+ *  @param keyboardHeight 当前弹出键盘的高度
+ *  @param offsetHeight   默认偏移高度
+ */
+- (void)restoreViewHeightWithFirstResponder:(UIView *)firstResponder
+                               keyboardHeight:(CGFloat)keyboardHeight
+                                 offsetHeight:(CGFloat)offsetHeight;
+
 @end
 
 

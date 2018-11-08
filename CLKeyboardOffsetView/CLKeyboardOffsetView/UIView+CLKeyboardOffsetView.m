@@ -158,8 +158,25 @@ static char kKeyboardOffsetViewDelegate;
 /** 键盘消失，还原视图 */
 -(void)keyboardWillDisappear:(NSNotification *)notification
 {
+    CGFloat keyboardHeight = [self keyboardFrameHeight:[notification userInfo]];  // 键盘高度
     CGFloat duration = [[notification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];    // 动画持续时间
     UIViewAnimationOptions options = [[notification userInfo][UIKeyboardAnimationCurveUserInfoKey] integerValue] << 16; // 动画时间曲线
+    
+    
+    // 获取第一响应者的位置
+    UIView *firstResponder = [self firstResponder];
+    
+    // 向上偏移的高度
+    CGFloat offsetViewHeight = self.transform.ty * -1;
+    
+    // 通过代理获取视图偏移的高度
+    if([self.keyboardOffsetViewDelegate respondsToSelector:@selector(restoreViewHeightWithFirstResponder:keyboardHeight:offsetHeight:)])
+    {
+        [self.keyboardOffsetViewDelegate restoreViewHeightWithFirstResponder:firstResponder
+                                                                                  keyboardHeight:keyboardHeight
+                                                                                    offsetHeight:offsetViewHeight];
+    }
+    
     
     [UIView animateWithDuration:duration
                           delay:0.0
